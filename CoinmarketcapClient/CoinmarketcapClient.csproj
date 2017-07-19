@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.3;netstandard1.5;net45</TargetFrameworks>
+    <PackageVersion>0.9</PackageVersion>
+    <Authors>Dominik Lindemann / Axel Katzur</Authors>
+    <Description>C# client to connect to coinmarketcap API</Description>
+    <Copyright>Copyright 2017 (c). All rights reserved.</Copyright>
+    <PackageTags>coinmarketcap crypto client C# .net</PackageTags>
+    <PackageLicenseUrl>http://choosealicense.com/licenses/bsd-2-clause/</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/noobsmuc/CoinmarketcapClient</PackageProjectUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <AssemblyName>NoobsMuc.Coinmarketcap.Client</AssemblyName>
+    <RootNamespace>NoobsMuc.Coinmarketcap.Client</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+
+</Project>
