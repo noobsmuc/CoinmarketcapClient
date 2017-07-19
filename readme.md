@@ -9,7 +9,7 @@ Here is an .Net Client for the [Coinmarket Api](https://coinmarketcap.com/api/)
 
 ## Example:
 ```csharp
-	ICoinCapClient client = new CoinCapClient();
+	ICoinmarketcapClient client = new CoinmarketcapClient();
 	Currency currency = client.GetCurrencyById("bitcoin");
 ```
 
