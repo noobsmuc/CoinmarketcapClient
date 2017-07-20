@@ -15,3 +15,7 @@ Here is an .Net Client for the [Coinmarket Api](https://coinmarketcap.com/api/)
 
 ## Licence:
 http://choosealicense.com/licenses/bsd-2-clause/
+
+## Todo:
+At the moment we don't return the converted currency. 
+The will be implemented in version 1.0

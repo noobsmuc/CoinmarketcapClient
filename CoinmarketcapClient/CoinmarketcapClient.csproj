@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;netstandard1.5;net45</TargetFrameworks>
     <PackageVersion>0.9</PackageVersion>
+    <title>Coinmarketcap Client</title>
     <Authors>Dominik Lindemann / Axel Katzur</Authors>
     <Description>C# client to connect to coinmarketcap API</Description>
     <Copyright>Copyright 2017 (c). All rights reserved.</Copyright>
