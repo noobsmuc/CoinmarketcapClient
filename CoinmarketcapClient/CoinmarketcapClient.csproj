@@ -15,7 +15,7 @@
     <AssemblyName>NoobsMuc.Coinmarketcap.Client</AssemblyName>
     <RootNamespace>NoobsMuc.Coinmarketcap.Client</RootNamespace>
     <PackageReleaseNotes>Bugfix for CurrencyById</PackageReleaseNotes>
-    <PackageIconUrl>https://avatars1.githubusercontent.com/u/30287403</PackageIconUrl>
+    <PackageIconUrl>https://secure.gravatar.com/avatar/eaa2ca6694b26502955aea7afc3a757d</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
