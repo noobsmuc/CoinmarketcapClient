@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RestSharp.Portable;
 
 namespace NoobsMuc.Coinmarketcap.Client
@@ -28,8 +29,8 @@ namespace NoobsMuc.Coinmarketcap.Client
             string path = GetPath("/" + id, convertCurrency);
 
             var client = new WebApiClient(Url);
-            var result = client.MakeRequest<Currency>(path, Method.GET);
-            return result;
+            var result = client.MakeRequest<List<Currency>>(path, Method.GET);
+            return result.First();
         }
 
         IEnumerable<Currency> ICoinmarketcapClient.GetCurrencies()
