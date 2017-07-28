@@ -26,10 +26,12 @@ namespace NoobsMuc.Coinmarketcap.Client
 
         private Currency CurrencyById(string id, string convertCurrency)
         {
-            string path = GetPath("/" + id, convertCurrency);
+            string path = "/" + id;
+            if (!string.IsNullOrEmpty(convertCurrency))
+                path += "/?convert=" + convertCurrency;
 
             var client = new WebApiClient(Url);
-            var result = client.MakeRequest<List<Currency>>(path, Method.GET);
+            var result = client.MakeRequest<List<Currency>>(Path + path, Method.GET);
             return result.First();
         }
 
@@ -55,22 +57,20 @@ namespace NoobsMuc.Coinmarketcap.Client
 
         private List<Currency> Currencies(int limit, string convertCurrency)
         {
-            string limitPath = limit < 1 ? string.Empty : "/?limit=" + limit;
-            string path = GetPath(limitPath, convertCurrency);
+            string seperator = string.Empty;
+            string path = "?";
+            if (limit > 0)
+            {
+                path += "limit=" + limit;
+                seperator = "&";
+            }
+
+            if(!string.IsNullOrEmpty(convertCurrency))
+                path += seperator +"convert=" + convertCurrency;
             
             var client = new WebApiClient(Url);
-            var result = client.MakeRequest<List<Currency>>(path, Method.GET);
+            var result = client.MakeRequest<List<Currency>>(Path + path, Method.GET);
             return result;
-        }
-
-        private static string GetPath(string pathPart, string convertCurrency)
-        {
-            string seperator = !string.IsNullOrEmpty(pathPart) ? "&" : "/?";
-            string subPath = Path + pathPart;
-            if (!string.IsNullOrEmpty(convertCurrency))
-                subPath += seperator + "convert=" + convertCurrency.ToUpper();
-
-            return subPath;
         }
     }
 }

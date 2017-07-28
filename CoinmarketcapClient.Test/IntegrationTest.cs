@@ -27,10 +27,10 @@ namespace CoinCapClient.Test
         }
 
         [Test]
-        public void GetCurrency_UsingJPY_Return200Entries()
+        public void GetCurrency_UsingJPY_ReturnAllCurrencyWithEUR()
         {
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient();
-            var retValue = m_Sut.GetCurrencies("JPY");
+            var retValue = m_Sut.GetCurrencies("EUR");
             retValue.Count().Should().BeGreaterThan(900);
         }
 
@@ -49,6 +49,15 @@ namespace CoinCapClient.Test
             Currency currency = m_Sut.GetCurrencyById("bitcoin");
             currency.Id.Should().Be("bitcoin");
             currency.Symbol.Should().Be("BTC");
+        }
+
+        [Test]
+        public void GetCurrencyById_PivxInEur_ReturnPivxDetail()
+        {
+            ICoinmarketcapClient m_Sut = new CoinmarketcapClient();
+            Currency currency = m_Sut.GetCurrencyById("pivx","EUR");
+            currency.Id.Should().Be("pivx");
+            currency.Symbol.Should().Be("PIVX");
         }
 
         [Test]
