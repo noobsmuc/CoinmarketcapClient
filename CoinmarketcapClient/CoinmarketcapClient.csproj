@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;netstandard1.5;net45</TargetFrameworks>
-    <PackageVersion>0.9.2</PackageVersion>
+    <IncludeSymbols>True</IncludeSymbols>
+    <PackageVersion>1.0.0</PackageVersion>
     <title>Coinmarketcap Client</title>
     <Authors>Dominik Lindemann / Axel Katzur</Authors>
     <Description>C# client to connect to coinmarketcap API</Description>
@@ -14,7 +15,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <AssemblyName>NoobsMuc.Coinmarketcap.Client</AssemblyName>
     <RootNamespace>NoobsMuc.Coinmarketcap.Client</RootNamespace>
-    <PackageReleaseNotes>Bugfix for CurrencyById incl. Convert</PackageReleaseNotes>
+    <PackageReleaseNotes>Support convert currency values</PackageReleaseNotes>
     <PackageIconUrl>https://secure.gravatar.com/avatar/eaa2ca6694b26502955aea7afc3a757d</PackageIconUrl>
   </PropertyGroup>
 

@@ -27,11 +27,20 @@ namespace CoinCapClient.Test
         }
 
         [Test]
-        public void GetCurrency_UsingJPY_ReturnAllCurrencyWithEUR()
+        public void GetCurrency_UsingGBP_ReturnAllCurrencyWithConverted()
         {
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient();
-            var retValue = m_Sut.GetCurrencies("EUR");
+            var retValue = m_Sut.GetCurrencies("GBP");
             retValue.Count().Should().BeGreaterThan(900);
+            retValue.First().PriceConvert.Should().NotBeNullOrEmpty();
+            retValue.First().MarketCapConvert.Should().NotBeNullOrEmpty();
+            retValue.First().Volume24Convert.Should().NotBeNullOrEmpty();
+            retValue.First().ConvertCurrency.Should().Be("GBP");
+
+            retValue.Take(155).Last().PriceConvert.Should().NotBeNullOrEmpty();
+            retValue.Take(155).Last().MarketCapConvert.Should().NotBeNullOrEmpty();
+            retValue.Take(155).Last().Volume24Convert.Should().NotBeNullOrEmpty();
+            retValue.Take(155).Last().ConvertCurrency.Should().Be("GBP");
         }
 
         [Test]
@@ -40,6 +49,15 @@ namespace CoinCapClient.Test
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient();
             var retValue = m_Sut.GetCurrencies(200,"JPY");
             retValue.Count().Should().Be(200);
+            retValue.First().PriceConvert.Should().NotBeNullOrEmpty();
+            retValue.First().MarketCapConvert.Should().NotBeNullOrEmpty();
+            retValue.First().Volume24Convert.Should().NotBeNullOrEmpty();
+            retValue.First().ConvertCurrency.Should().Be("JPY");
+
+            retValue.Last().PriceConvert.Should().NotBeNullOrEmpty();
+            retValue.Last().MarketCapConvert.Should().NotBeNullOrEmpty();
+            retValue.Last().Volume24Convert.Should().NotBeNullOrEmpty();
+            retValue.Last().ConvertCurrency.Should().Be("JPY");
         }
 
         [Test]
@@ -49,6 +67,9 @@ namespace CoinCapClient.Test
             Currency currency = m_Sut.GetCurrencyById("bitcoin");
             currency.Id.Should().Be("bitcoin");
             currency.Symbol.Should().Be("BTC");
+            currency.PriceConvert.Should().BeNull();
+            currency.MarketCapConvert.Should().BeNull();
+            currency.Volume24Convert.Should().BeNull();
         }
 
         [Test]
@@ -58,6 +79,10 @@ namespace CoinCapClient.Test
             Currency currency = m_Sut.GetCurrencyById("pivx","EUR");
             currency.Id.Should().Be("pivx");
             currency.Symbol.Should().Be("PIVX");
+            currency.PriceConvert.Should().NotBeNullOrEmpty();
+            currency.MarketCapConvert.Should().NotBeNullOrEmpty();
+            currency.Volume24Convert.Should().NotBeNullOrEmpty();
+            currency.ConvertCurrency.Should().Be("EUR");
         }
 
         [Test]

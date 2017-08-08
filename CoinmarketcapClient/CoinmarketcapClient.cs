@@ -23,7 +23,7 @@ namespace NoobsMuc.Coinmarketcap.Client
         {
             return CurrencyById(id, convertCurrency);
         }
-
+        
         private Currency CurrencyById(string id, string convertCurrency)
         {
             string path = "/" + id;
@@ -31,7 +31,8 @@ namespace NoobsMuc.Coinmarketcap.Client
                 path += "/?convert=" + convertCurrency;
 
             var client = new WebApiClient(Url);
-            var result = client.MakeRequest<List<Currency>>(Path + path, Method.GET);
+            var result = client.MakeRequest(Path + path, Method.GET, convertCurrency);
+            
             return result.First();
         }
 
@@ -69,7 +70,7 @@ namespace NoobsMuc.Coinmarketcap.Client
                 path += seperator +"convert=" + convertCurrency;
             
             var client = new WebApiClient(Url);
-            var result = client.MakeRequest<List<Currency>>(Path + path, Method.GET);
+            var result = client.MakeRequest(Path + path, Method.GET, convertCurrency);
             return result;
         }
     }
