@@ -38,12 +38,12 @@ namespace NoobsMuc.Coinmarketcap.Client
 
         IEnumerable<Currency> ICoinmarketcapClient.GetCurrencies()
         {
-            return Currencies(-1, string.Empty);
+            return Currencies(0, string.Empty);
         }
 
         IEnumerable<Currency> ICoinmarketcapClient.GetCurrencies(string convertCurrency)
         {
-            return Currencies(-1, convertCurrency);
+            return Currencies(0, convertCurrency);
         }
 
         IEnumerable<Currency> ICoinmarketcapClient.GetCurrencies(int limit)
