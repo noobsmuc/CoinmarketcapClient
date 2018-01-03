@@ -60,12 +60,10 @@ namespace NoobsMuc.Coinmarketcap.Client
         {
             string seperator = string.Empty;
             string path = "?";
-            if (limit > 0)
-            {
-                path += "limit=" + limit;
-                seperator = "&";
-            }
 
+            path += "limit=" + limit;
+            seperator = "&";
+            
             if(!string.IsNullOrEmpty(convertCurrency))
                 path += seperator +"convert=" + convertCurrency;
             
