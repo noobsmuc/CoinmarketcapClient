@@ -9,14 +9,15 @@
     <Description>C# client to connect to coinmarketcap API</Description>
     <Copyright>Copyright 2020 (c). All rights reserved.</Copyright>
     <PackageTags>coinmarketcap crypto client C# .net</PackageTags>
-    <PackageLicenseUrl>http://choosealicense.com/licenses/bsd-2-clause/</PackageLicenseUrl>
+    <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/noobsmuc/CoinmarketcapClient</PackageProjectUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <AssemblyName>NoobsMuc.Coinmarketcap.Client</AssemblyName>
     <RootNamespace>NoobsMuc.Coinmarketcap.Client</RootNamespace>
-    <PackageReleaseNotes>Support convert currency values</PackageReleaseNotes>
-    <PackageIconUrl>https://de.gravatar.com/userimage/125252678/6ee38e8da9120e8394a092de4d5c4849</PackageIconUrl>
+    <PackageReleaseNotes>support new pro-api coinmarketcap with key</PackageReleaseNotes>
+    <PackageIcon>noobs.png</PackageIcon>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,6 +35,13 @@
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities">
       <Version>2.2.0</Version>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="noobs.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
