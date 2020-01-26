@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace NoobsMuc.Coinmarketcap.Client
 {
@@ -8,33 +9,14 @@ namespace NoobsMuc.Coinmarketcap.Client
         public string Name { get; set; }
         public string Symbol { get; set; }
         public string Rank { get; set; }
-        [JsonProperty(PropertyName = "price_usd")]
-        public string PriceUsd { get; set; }
-        [JsonProperty(PropertyName = "price_btc")]
-        public string PriceBtc { get; set; }
-        [JsonProperty(PropertyName = "24h_volume_usd")]
-        public string Volume24hUsd { get; set; }
-        [JsonProperty(PropertyName = "market_cap_usd")]
-        public string MarketCapUsd { get; set; }
-        [JsonProperty(PropertyName = "available_supply")]
-        public string AvailableSupply { get; set; }
-        [JsonProperty(PropertyName = "total_supply")]
-        public string TotalSupply { get; set; }
-        [JsonProperty(PropertyName = "percent_change_1h")]
-        public string PercentChange1h { get; set; }
-        [JsonProperty(PropertyName = "percent_change_24h")]
-        public string PercentChange24h { get; set; }
-        [JsonProperty(PropertyName = "percent_change_7d")]
-        public string PercentChange7d { get; set; }
-        [JsonProperty(PropertyName = "last_updated")]
-        public string LastUpdated { get; set; }
-        [JsonProperty(PropertyName = "price_convert")]
-        public string PriceConvert { get; set; }
-        [JsonProperty(PropertyName = "24h_volume_convert")]
-        public string Volume24Convert { get; set; }
-        [JsonProperty(PropertyName = "market_cap_convert")]
-        public string MarketCapConvert { get; set; }
-
+        public double Price { get; set; }
+        public double Volume24hUsd { get; set; }
+        public double MarketCapUsd { get; set; }
+        public double PercentChange1h { get; set; }
+        public double PercentChange24h { get; set; }
+        public double PercentChange7d { get; set; }
+        public DateTime LastUpdated { get; set; }
+        public Double MarketCapConvert { get; set; }
         public string ConvertCurrency { get; set; }
     }
 }
