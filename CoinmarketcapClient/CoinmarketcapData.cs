@@ -40,8 +40,8 @@ namespace NoobsMuc.Coinmarketcap.Client
         public DateTime date_added { get; set; }
         public List<object> tags { get; set; }
         public double? max_supply { get; set; }
-        public double circulating_supply { get; set; }
-        public double total_supply { get; set; }
+        public double? circulating_supply { get; set; }
+        public double? total_supply { get; set; }
         public CurrenyInfo platform { get; set; }
         public int cmc_rank { get; set; }
         public DateTime last_updated { get; set; }
@@ -69,12 +69,12 @@ namespace NoobsMuc.Coinmarketcap.Client
 
     public class CurrenyPriceInfo
     {
-        public double price { get; set; }
+        public double? price { get; set; }
         public double? volume_24h { get; set; }
         public double? percent_change_1h { get; set; }
         public double? percent_change_24h { get; set; }
         public double? percent_change_7d { get; set; }
-        public double market_cap { get; set; }
+        public double? market_cap { get; set; }
         public DateTime last_updated { get; set; }
     }
 
