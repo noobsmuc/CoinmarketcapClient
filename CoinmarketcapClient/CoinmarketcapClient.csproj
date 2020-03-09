@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <IncludeSymbols>True</IncludeSymbols>
-    <PackageVersion>2.0.0</PackageVersion>
+    <PackageVersion>2.0.1</PackageVersion>
     <title>Coinmarketcap Client</title>
     <Authors>Dominik Lindemann / Axel Katzur</Authors>
     <Description>C# client to connect to coinmarketcap API</Description>
