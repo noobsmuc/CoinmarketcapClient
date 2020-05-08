@@ -18,3 +18,6 @@ http://choosealicense.com/licenses/bsd-2-clause/
 
 ## Support convert currency:
 Version 2.0.0 support converted currency parameter.
+
+## Available on Nuget.org
+https://www.nuget.org/packages/NoobsMuc.Coinmarketcap.Client/
