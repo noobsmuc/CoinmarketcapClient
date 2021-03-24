@@ -91,7 +91,7 @@ namespace CoinCapClient.Test
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             List<Currency> currencyList = m_Sut.GetCurrencyBySlugList(new[] { "StraTis", "irisnet" }).ToList();
             currencyList[0].Name.Should().Be("Stratis");
-            currencyList[0].Symbol.Should().Be("STRAT");
+            currencyList[0].Symbol.Should().Be("STRAX");
             currencyList[0].Price.Should().NotBe(null);
             currencyList[0].MarketCapConvert.Should().NotBe(null);
 
