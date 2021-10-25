@@ -28,9 +28,19 @@ namespace NoobsMuc.Coinmarketcap.Client
             return CurrencyBySlugList(new List<string> {slug}, string.Empty).First();
         }
 
+        Currency ICoinmarketcapClient.GetCurrencyBySymbol(string Symbol)
+        {
+            return CurrencyBySymbolList(new List<string> { Symbol }, string.Empty).First();
+        }
+
         Currency ICoinmarketcapClient.GetCurrencyBySlug(string slug, string convertCurrency)
         {
             return CurrencyBySlugList(new List<string> { slug }, convertCurrency).First();
+        }
+
+        Currency ICoinmarketcapClient.GetCurrencyBySymbol(string Symbol, string convertCurrency)
+        {
+            return CurrencyBySymbolList(new List<string> { Symbol }, convertCurrency).First();
         }
 
         public IEnumerable<Currency> GetCurrencyBySlugList(string[] slugList)
@@ -43,6 +53,16 @@ namespace NoobsMuc.Coinmarketcap.Client
             return CurrencyBySlugList(slugList.ToList(), convertCurrency);
         }
 
+        public IEnumerable<Currency> GetCurrencyBySymbolList(string[] SymbolList)
+        {
+            return CurrencyBySymbolList(SymbolList.ToList(), string.Empty);
+        }
+
+        public IEnumerable<Currency> GetCurrencyBySymbolList(string[] SymbolList, string convertCurrency)
+        {
+            return CurrencyBySymbolList(SymbolList.ToList(), convertCurrency);
+        }
+
         private IEnumerable<Currency> CurrencyBySlugList(List<string> slugList, string convertCurrency)
         {
             var queryArguments = new Dictionary<string, string>
@@ -50,6 +70,19 @@ namespace NoobsMuc.Coinmarketcap.Client
                 {"slug", string.Join(",", slugList.Select(item => item.ToLower()))}
             };
  
+            var client = GetWebApiClient(UrlPartItem, ref convertCurrency, queryArguments);
+            var result = client.MakeRequest(Method.GET, convertCurrency, true);
+
+            return result;
+        }
+
+        private IEnumerable<Currency> CurrencyBySymbolList(List<string> SymbolList, string convertCurrency)
+        {
+            var queryArguments = new Dictionary<string, string>
+            {
+                {"symbol", string.Join(",", SymbolList.Select(item => item.ToLower()))}
+            };
+
             var client = GetWebApiClient(UrlPartItem, ref convertCurrency, queryArguments);
             var result = client.MakeRequest(Method.GET, convertCurrency, true);
 
