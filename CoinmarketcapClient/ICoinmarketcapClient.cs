@@ -14,8 +14,8 @@ namespace NoobsMuc.Coinmarketcap.Client
         IEnumerable<Currency> GetCurrencyBySlugList(string[] slugList);
         IEnumerable<Currency> GetCurrencyBySlugList(string[] slugList, string convertCurrency);
 
-        IEnumerable<Currency> GetCurrencyBySymbolList(string[] SymbolList);
-        IEnumerable<Currency> GetCurrencyBySymbolList(string[] SymbolList, string convertCurrency);
+        IEnumerable<Currency> GetCurrencyBySymbolList(string[] symbolList);
+        IEnumerable<Currency> GetCurrencyBySymbolList(string[] symbolList, string convertCurrency);
 
         IEnumerable<Currency> GetCurrencies();
         IEnumerable<Currency> GetCurrencies(string convertCurrency);
