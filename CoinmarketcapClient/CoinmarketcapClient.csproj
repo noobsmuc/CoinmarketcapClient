@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461;net50</TargetFrameworks>
     <IncludeSymbols>True</IncludeSymbols>
-    <PackageVersion>2.1.1</PackageVersion>
+    <PackageVersion>2.2.0</PackageVersion>
     <title>Coinmarketcap Client</title>
     <Authors>Dominik Lindemann / Axel Katzur</Authors>
     <Description>C# client to connect to coinmarketcap API</Description>
@@ -15,7 +15,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <AssemblyName>NoobsMuc.Coinmarketcap.Client</AssemblyName>
     <RootNamespace>NoobsMuc.Coinmarketcap.Client</RootNamespace>
-    <PackageReleaseNotes>add net5.0 support</PackageReleaseNotes>
+    <PackageReleaseNotes>Added GetCurrencyBySymbol</PackageReleaseNotes>
     <PackageIconUrl>https://de.gravatar.com/userimage/125252678/6ee38e8da9120e8394a092de4d5c4849</PackageIconUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

@@ -3,6 +3,7 @@
 Here is an .NET Client for the [Coinmarket Api](https://coinmarketcap.com/api/)
 
 ## Available for:
+- .NET 5.0
 - .NET Standard 2.0
 - .NET 4.6.1
 
