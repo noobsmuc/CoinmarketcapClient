@@ -37,7 +37,7 @@ namespace NoobsMuc.Coinmarketcap.Client
         public string symbol { get; set; }
         public string slug { get; set; }
         public int num_market_pairs { get; set; }
-        public DateTime date_added { get; set; }
+        public DateTime? date_added { get; set; }
         public List<object> tags { get; set; }
         public double? max_supply { get; set; }
         public double? circulating_supply { get; set; }
