@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net50</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net48;net60</TargetFrameworks>
     <IncludeSymbols>True</IncludeSymbols>
-    <PackageVersion>2.2.0</PackageVersion>
+    <PackageVersion>2.3.0</PackageVersion>
     <title>Coinmarketcap Client</title>
     <Authors>Dominik Lindemann / Axel Katzur</Authors>
     <Description>C# client to connect to coinmarketcap API</Description>
-    <Copyright>Copyright 2021 (c). All rights reserved.</Copyright>
+    <Copyright>Copyright 2022 (c). All rights reserved.</Copyright>
     <PackageTags>coinmarketcap crypto client C# .net</PackageTags>
     <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/noobsmuc/CoinmarketcapClient</PackageProjectUrl>
@@ -15,7 +15,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <AssemblyName>NoobsMuc.Coinmarketcap.Client</AssemblyName>
     <RootNamespace>NoobsMuc.Coinmarketcap.Client</RootNamespace>
-    <PackageReleaseNotes>Added GetCurrencyBySymbol</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix isssue, add support net6 + 4.8, remove net5 and 4.6.1 (eos)</PackageReleaseNotes>
     <PackageIconUrl>https://de.gravatar.com/userimage/125252678/6ee38e8da9120e8394a092de4d5c4849</PackageIconUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
