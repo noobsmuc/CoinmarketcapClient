@@ -9,14 +9,14 @@ namespace NoobsMuc.Coinmarketcap.Client
         public string Name { get; set; }
         public string Symbol { get; set; }
         public string Rank { get; set; }
-        public double Price { get; set; }
-        public double Volume24hUsd { get; set; }
-        public double MarketCapUsd { get; set; }
-        public double PercentChange1h { get; set; }
-        public double PercentChange24h { get; set; }
-        public double PercentChange7d { get; set; }
+        public decimal Price { get; set; }
+        public decimal Volume24hUsd { get; set; }
+        public decimal MarketCapUsd { get; set; }
+        public decimal PercentChange1h { get; set; }
+        public decimal PercentChange24h { get; set; }
+        public decimal PercentChange7d { get; set; }
         public DateTime LastUpdated { get; set; }
-        public Double MarketCapConvert { get; set; }
+        public decimal MarketCapConvert { get; set; }
         public string ConvertCurrency { get; set; }
     }
 }

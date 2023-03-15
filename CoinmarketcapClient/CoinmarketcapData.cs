@@ -7,8 +7,6 @@ namespace NoobsMuc.Coinmarketcap.Client
 {
     public class CoinmarketcapItemData
     {
-        public Status Status { get; set; }
-
         public CoinmarketcapItemData()
         {
             DataList = new List<ItemData>();
@@ -18,6 +16,7 @@ namespace NoobsMuc.Coinmarketcap.Client
         public List<ItemData> DataList { get; set; }
 
         private Dictionary<string, ItemData> _dataItemList;
+
         [JsonProperty(PropertyName = "dataItem")]
         public Dictionary<string, ItemData> DataItemList
         {
@@ -39,9 +38,9 @@ namespace NoobsMuc.Coinmarketcap.Client
         public int num_market_pairs { get; set; }
         public DateTime? date_added { get; set; }
         public List<object> tags { get; set; }
-        public double? max_supply { get; set; }
-        public double? circulating_supply { get; set; }
-        public double? total_supply { get; set; }
+        public decimal? max_supply { get; set; }
+        public decimal? circulating_supply { get; set; }
+        public decimal? total_supply { get; set; }
         public CurrenyInfo platform { get; set; }
         public int cmc_rank { get; set; }
         public DateTime last_updated { get; set; }
@@ -69,12 +68,20 @@ namespace NoobsMuc.Coinmarketcap.Client
 
     public class CurrenyPriceInfo
     {
-        public double? price { get; set; }
-        public double? volume_24h { get; set; }
-        public double? percent_change_1h { get; set; }
-        public double? percent_change_24h { get; set; }
-        public double? percent_change_7d { get; set; }
-        public double? market_cap { get; set; }
+        public decimal? price { get; set; }
+        public decimal? volume_24h { get; set; }
+        public decimal? percent_change_1h { get; set; }
+        public decimal? percent_change_24h { get; set; }
+        public decimal? percent_change_7d { get; set; }
+
+        #region in Symbol Call 
+        public double percent_change_30d { get; set; }
+        public double percent_change_60d { get; set; }
+        public double percent_change_90d { get; set; }
+
+        #endregion in Symbol Call
+
+        public decimal? market_cap { get; set; }
         public DateTime last_updated { get; set; }
     }
 

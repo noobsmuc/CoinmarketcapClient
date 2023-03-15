@@ -21,7 +21,8 @@ namespace NoobsMuc.Coinmarketcap.Client
         }
 
 
-        public List<Currency> MakeRequest(Method method, string convert, bool oneItemonly)
+        public List<Currency> MakeRequest(Method method, string convert, 
+            bool oneItemonly, bool isSymbol, IReadOnlyList<string> searchString)
         {
             if (string.IsNullOrEmpty(convert))
                 throw new ArgumentException("currency not set.");
@@ -30,13 +31,65 @@ namespace NoobsMuc.Coinmarketcap.Client
             Task<IRestResponse> task = RestClient.Execute(request);
             var content = task.Result.Content;
 
+            List<Currency> currencyList = new List<Currency>();
+            if (!isSymbol)
+            {
+                GetNonSymbolData(convert, oneItemonly, content, currencyList);
+            }
+            else
+            {
+                GetSymbolData(convert, searchString, content, currencyList);
+            }
+
+            return currencyList;
+        }
+
+        private static void GetSymbolData(string convert, IReadOnlyList<string> searchString, 
+            string content, List<Currency> currencyList)
+        {
+            foreach (string item in searchString)
+            {
+                string replaceString = $"\"{item}\":[";
+                content = content.Replace(replaceString, "\"CurrenyData\":[");
+            }
+
+            string replaceString1 = $"\"quote\":{{\"{convert}\":";
+            content = content.Replace(replaceString1, "\"quote\":{\"CurrenyPriceInfo\":");
+
+            content = content.Replace("data", "dataItem");
+
+            CoinmarketcapDataSymbol result1 = JsonConvert.DeserializeObject<CoinmarketcapDataSymbol>(content);
+            foreach (CurrenyData data in result1.dataItem.CurrenyData)
+            {
+                Currency item = new Currency
+                {
+                    Id = data.id.ToString(),
+                    Name = data.name,
+                    Symbol = data.symbol,
+                    Rank = data.cmc_rank.ToString(),
+                    Price = data.quote.CurrenyPriceInfo.price ?? 0,
+                    Volume24hUsd = data.quote.CurrenyPriceInfo.volume_24h ?? 0,
+                    MarketCapUsd = data.quote.CurrenyPriceInfo.volume_24h ?? 0,
+                    PercentChange1h = data.quote.CurrenyPriceInfo.percent_change_1h ?? 0,
+                    PercentChange24h = data.quote.CurrenyPriceInfo.percent_change_24h ?? 0,
+                    PercentChange7d = data.quote.CurrenyPriceInfo.percent_change_7d ?? 0,
+                    LastUpdated = data.quote.CurrenyPriceInfo.last_updated,
+                    MarketCapConvert = data.quote.CurrenyPriceInfo.market_cap ?? 0,
+                    ConvertCurrency = convert
+                };
+
+                currencyList.Add(item);
+            }
+        }
+
+        private static string GetNonSymbolData(string convert, bool oneItemonly, string content, List<Currency> currencyList)
+        {
             content = content.Replace(convert, "CurrenyPriceInfo");
             if (oneItemonly)
                 content = content.Replace("data", "dataItem");
 
             CoinmarketcapItemData result = JsonConvert.DeserializeObject<CoinmarketcapItemData>(content);
 
-            List<Currency> currencyList = new List<Currency>();
             foreach (ItemData data in result.DataList)
             {
                 Currency item = new Currency
@@ -45,21 +98,21 @@ namespace NoobsMuc.Coinmarketcap.Client
                     Name = data.name,
                     Symbol = data.symbol,
                     Rank = data.cmc_rank.ToString(),
-                    Price = data.quote.CurrenyPriceInfo.price ?? 0d,
+                    Price = data.quote.CurrenyPriceInfo.price ?? 0,
                     Volume24hUsd = data.quote.CurrenyPriceInfo.volume_24h ?? 0,
                     MarketCapUsd = data.quote.CurrenyPriceInfo.volume_24h ?? 0,
                     PercentChange1h = data.quote.CurrenyPriceInfo.percent_change_1h ?? 0,
                     PercentChange24h = data.quote.CurrenyPriceInfo.percent_change_24h ?? 0,
                     PercentChange7d = data.quote.CurrenyPriceInfo.percent_change_7d ?? 0,
                     LastUpdated = data.quote.CurrenyPriceInfo.last_updated,
-                    MarketCapConvert = data.quote.CurrenyPriceInfo.market_cap ?? 0d,
+                    MarketCapConvert = data.quote.CurrenyPriceInfo.market_cap ?? 0,
                     ConvertCurrency = convert
                 };
 
                 currencyList.Add(item);
             }
 
-            return currencyList;
+            return content;
         }
 
         public static RestRequest CreateRequest(Method method)

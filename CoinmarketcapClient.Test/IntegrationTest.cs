@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using FluentAssertions;
 using NoobsMuc.Coinmarketcap.Client;
 using NUnit.Framework;
-
 
 namespace CoinCapClient.Test
 {
@@ -36,14 +34,17 @@ namespace CoinCapClient.Test
         {
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             var retValue = m_Sut.GetCurrencies("GBP");
-            retValue.Count().Should().Be(100);
-            retValue.First().Price.Should().NotBe(null); ;
-            retValue.First().MarketCapConvert.Should().NotBe(null);
-            retValue.First().ConvertCurrency.Should().Be("GBP");
+            Assert.Multiple(() =>
+            {
+                retValue.Count().Should().Be(100);
+                retValue.First().Price.Should().NotBe(null); ;
+                retValue.First().MarketCapConvert.Should().NotBe(null);
+                retValue.First().ConvertCurrency.Should().Be("GBP");
 
-            retValue.Take(155).Last().Price.Should().NotBe(null);
-            retValue.Take(155).Last().MarketCapConvert.Should().NotBe(null);
-            retValue.Take(155).Last().ConvertCurrency.Should().Be("GBP");
+                retValue.Take(155).Last().Price.Should().NotBe(null);
+                retValue.Take(155).Last().MarketCapConvert.Should().NotBe(null);
+                retValue.Take(155).Last().ConvertCurrency.Should().Be("GBP");
+            });
         }
 
         [Test]
@@ -51,14 +52,17 @@ namespace CoinCapClient.Test
         {
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             IEnumerable<Currency> retValue = m_Sut.GetCurrencies(200,"JPY");
-            retValue.Count().Should().Be(200);
-            retValue.First().Price.Should().NotBe(null);
-            retValue.First().MarketCapConvert.Should().NotBe(null);
-            retValue.First().ConvertCurrency.Should().Be("JPY");
+            Assert.Multiple(() =>
+            {
+                retValue.Count().Should().Be(200);
+                retValue.First().Price.Should().NotBe(null);
+                retValue.First().MarketCapConvert.Should().NotBe(null);
+                retValue.First().ConvertCurrency.Should().Be("JPY");
 
-            retValue.Last().Price.Should().NotBe(null);
-            retValue.Last().MarketCapConvert.Should().NotBe(null);
-            retValue.Last().ConvertCurrency.Should().Be("JPY");
+                retValue.Last().Price.Should().NotBe(null);
+                retValue.Last().MarketCapConvert.Should().NotBe(null);
+                retValue.Last().ConvertCurrency.Should().Be("JPY");
+            });
         }
 
         [Test]
@@ -66,10 +70,13 @@ namespace CoinCapClient.Test
         {
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             Currency currency = m_Sut.GetCurrencyBySlug("bitcoin");
-            currency.Name.Should().Be("Bitcoin");
-            currency.Symbol.Should().Be("BTC");
-            currency.Price.Should().NotBe(null);
-            currency.MarketCapConvert.Should().NotBe(null);
+            Assert.Multiple(() =>
+            {
+                currency.Name.Should().Be("Bitcoin");
+                currency.Symbol.Should().Be("BTC");
+                currency.Price.Should().NotBe(null);
+                currency.MarketCapConvert.Should().NotBe(null);
+            });
         }
 
         [Test]
@@ -77,28 +84,34 @@ namespace CoinCapClient.Test
         {
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             Currency currency = m_Sut.GetCurrencyBySlug("pivx","EUR");
-            currency.Name.Should().Be("PIVX");
-            currency.Symbol.Should().Be("PIVX");
-            currency.Price.Should().NotBe(null);
-            currency.MarketCapConvert.Should().NotBe(null);
-            currency.ConvertCurrency.Should().Be("EUR");
+            Assert.Multiple(() =>
+            {
+                currency.Name.Should().Be("PIVX");
+                currency.Symbol.Should().Be("PIVX");
+                currency.Price.Should().NotBe(null);
+                currency.MarketCapConvert.Should().NotBe(null);
+                currency.ConvertCurrency.Should().Be("EUR");
+            });
         }
 
         [Test]
-        public void GetCurrencyBySlugList_StratisIrisnet_ReturnBitcoinDetail()
+        public void GetCurrencyBySlugList_StratisIrisnet_ReturnDetails()
         {
             //StraTis-> test with upper and lower case
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             List<Currency> currencyList = m_Sut.GetCurrencyBySlugList(new[] { "StraTis", "irisnet" }).ToList();
-            currencyList[0].Name.Should().Be("Stratis");
-            currencyList[0].Symbol.Should().Be("STRAX");
-            currencyList[0].Price.Should().NotBe(null);
-            currencyList[0].MarketCapConvert.Should().NotBe(null);
+            Assert.Multiple(() =>
+            {
+                currencyList[0].Name.Should().Be("Stratis");
+                currencyList[0].Symbol.Should().Be("STRAX");
+                currencyList[0].Price.Should().NotBe(null);
+                currencyList[0].MarketCapConvert.Should().NotBe(null);
 
-            currencyList[1].Name.Should().Be("IRISnet");
-            currencyList[1].Symbol.Should().Be("IRIS");
-            currencyList[1].Price.Should().NotBe(null);
-            currencyList[1].MarketCapConvert.Should().NotBe(null);
+                currencyList[1].Name.Should().Be("IRISnet");
+                currencyList[1].Symbol.Should().Be("IRIS");
+                currencyList[1].Price.Should().NotBe(null);
+                currencyList[1].MarketCapConvert.Should().NotBe(null);
+            });
         }
 
         [Test]
@@ -107,6 +120,59 @@ namespace CoinCapClient.Test
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             Action act = () => m_Sut.GetCurrencyBySlug("AnyWrongCurrency");
             act.Should().Throw<HttpRequestException>();
+        }
+
+        [Test]
+        public void GetCurrencyBySymbol_USDT_ReturnsCurrency()
+        {
+            ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
+            Currency currency = m_Sut.GetCurrencyBySymbol("USDT");
+
+            Assert.Multiple(() =>
+            {
+                currency.Name.Should().Be("Tether");
+                currency.Symbol.Should().Be("USDT");
+                currency.Price.Should().NotBe(null);
+                currency.MarketCapConvert.Should().NotBe(null);
+            });
+        }
+
+        [Test]
+        public void GetCurrencyBySymbol_ADAInEuro_ReturnsCurrency()
+        {
+            ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
+            Currency currency = m_Sut.GetCurrencyBySymbol("ADA", "EUR");
+
+            Assert.Multiple(() =>
+            {
+                currency.Name.Should().Be("Cardano");
+                currency.Symbol.Should().Be("ADA");
+                currency.Price.Should().NotBe(null);
+                currency.MarketCapConvert.Should().NotBe(null);
+                currency.ConvertCurrency.Should().Be("EUR");
+            });
+        }
+
+        [Test]
+        public void GetCurrencyBySymbol_DogeLink_ReturnsCurrency()
+        {
+            ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
+            var currencyList = m_Sut.GetCurrencyBySymbolList(new[] { "DOGE", "LINK" }, "EUR").ToList();
+
+            Assert.Multiple(() =>
+            {
+                currencyList[0].Name.Should().Be("Dogecoin");
+                currencyList[0].Symbol.Should().Be("DOGE");
+                currencyList[0].Price.Should().NotBe(null);
+                currencyList[0].MarketCapConvert.Should().NotBe(null);
+                currencyList[0].ConvertCurrency.Should().Be("EUR");
+
+                currencyList[1].Name.Should().Be("Chainlink");
+                currencyList[1].Symbol.Should().Be("LINK");
+                currencyList[1].Price.Should().NotBe(null);
+                currencyList[1].MarketCapConvert.Should().NotBe(null);
+                currencyList[1].ConvertCurrency.Should().Be("EUR");
+            });
         }
     }
 }

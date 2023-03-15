@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net48;net60;net70</TargetFrameworks>
     <IncludeSymbols>True</IncludeSymbols>
-    <PackageVersion>2.4.0</PackageVersion>
+    <PackageVersion>3.0.0</PackageVersion>
     <title>Coinmarketcap Client</title>
     <Authors>Dominik Lindemann / Axel Katzur</Authors>
     <Description>C# client to connect to coinmarketcap API</Description>
-    <Copyright>Copyright 2022 (c). All rights reserved.</Copyright>
+    <Copyright>Copyright 2023 (c). All rights reserved.</Copyright>
     <PackageTags>coinmarketcap crypto client C# .net</PackageTags>
     <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/noobsmuc/CoinmarketcapClient</PackageProjectUrl>
@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.WebUtilities;
 using RestSharp.Portable;
 
 namespace NoobsMuc.Coinmarketcap.Client
@@ -10,6 +8,7 @@ namespace NoobsMuc.Coinmarketcap.Client
     public class CoinmarketcapClient : ICoinmarketcapClient
     {
         private const string UrlBase = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/";
+        private const string UrlBaseV2 = "https://pro-api.coinmarketcap.com/v2/cryptocurrency/";
         private const string UrlPartList = "listings/latest";
         private const string UrlPartItem = "quotes/latest";
         private string _ApiKey;
@@ -30,7 +29,7 @@ namespace NoobsMuc.Coinmarketcap.Client
 
         Currency ICoinmarketcapClient.GetCurrencyBySymbol(string symbol)
         {
-            return CurrencyBySymbolList(new List<string> { symbol }, string.Empty).First();
+            return CurrencyBySymbolList(new List<string> { symbol }, symbol).First();
         }
 
         Currency ICoinmarketcapClient.GetCurrencyBySlug(string slug, string convertCurrency)
@@ -70,8 +69,8 @@ namespace NoobsMuc.Coinmarketcap.Client
                 {"slug", string.Join(",", slugList.Select(item => item.ToLower()))}
             };
  
-            var client = GetWebApiClient(UrlPartItem, ref convertCurrency, queryArguments);
-            var result = client.MakeRequest(Method.GET, convertCurrency, true);
+            var client = GetWebApiClient(UrlBaseV2, UrlPartItem, ref convertCurrency, queryArguments);
+            var result = client.MakeRequest(Method.GET, convertCurrency, true, false, slugList);
 
             return result;
         }
@@ -83,13 +82,13 @@ namespace NoobsMuc.Coinmarketcap.Client
                 {"symbol", string.Join(",", symbolList.Select(item => item.ToLower()))}
             };
 
-            var client = GetWebApiClient(UrlPartItem, ref convertCurrency, queryArguments);
-            var result = client.MakeRequest(Method.GET, convertCurrency, true);
+            var client = GetWebApiClient(UrlBaseV2, UrlPartItem, ref convertCurrency, queryArguments);
+            var result = client.MakeRequest(Method.GET, convertCurrency, true, true, symbolList);
 
             return result;
         }
 
-        private WebApiClient GetWebApiClient(
+        private WebApiClient GetWebApiClient(string baseUrl,
             string urlPart, ref string convertCurrency, Dictionary<string, string> queryArguments)
         {
             if (string.IsNullOrEmpty(convertCurrency))
@@ -97,7 +96,7 @@ namespace NoobsMuc.Coinmarketcap.Client
 
             queryArguments.Add("convert", convertCurrency);
 
-            UriBuilder uri = new UriBuilder(UrlBase + urlPart);
+            UriBuilder uri = new UriBuilder(baseUrl + urlPart);
             var client = new WebApiClient(uri, queryArguments, _ApiKey);
             return client;
         }
@@ -134,9 +133,9 @@ namespace NoobsMuc.Coinmarketcap.Client
             else
                 queryArguments.Add("limit", "100");
             
-            var client = GetWebApiClient(UrlPartList, ref convertCurrency, queryArguments);
+            var client = GetWebApiClient(UrlBase, UrlPartList, ref convertCurrency, queryArguments);
 
-            var result = client.MakeRequest( Method.GET, convertCurrency, false);
+            var result = client.MakeRequest( Method.GET, convertCurrency, false, false, new List<string>());
             return result;
         }
     }
