@@ -24,7 +24,7 @@ namespace NoobsMuc.Coinmarketcap.Client
         public double total_supply { get; set; }
         public Platform platform { get; set; }
         public int is_active { get; set; }
-        public int cmc_rank { get; set; }
+        public int? cmc_rank { get; set; }
         public int is_fiat { get; set; }
         public object self_reported_circulating_supply { get; set; }
         public object self_reported_market_cap { get; set; }

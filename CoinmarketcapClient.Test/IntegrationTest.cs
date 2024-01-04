@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using NoobsMuc.Coinmarketcap.Client;
 using NUnit.Framework;
 
@@ -34,7 +35,7 @@ namespace CoinCapClient.Test
         {
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             var retValue = m_Sut.GetCurrencies("GBP");
-            Assert.Multiple(() =>
+            using (new AssertionScope())
             {
                 retValue.Count().Should().Be(100);
                 retValue.First().Price.Should().NotBe(null); ;
@@ -44,7 +45,7 @@ namespace CoinCapClient.Test
                 retValue.Take(155).Last().Price.Should().NotBe(null);
                 retValue.Take(155).Last().MarketCapConvert.Should().NotBe(null);
                 retValue.Take(155).Last().ConvertCurrency.Should().Be("GBP");
-            });
+            };
         }
 
         [Test]
@@ -52,7 +53,7 @@ namespace CoinCapClient.Test
         {
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             IEnumerable<Currency> retValue = m_Sut.GetCurrencies(200,"JPY");
-            Assert.Multiple(() =>
+            using (new AssertionScope())
             {
                 retValue.Count().Should().Be(200);
                 retValue.First().Price.Should().NotBe(null);
@@ -62,7 +63,7 @@ namespace CoinCapClient.Test
                 retValue.Last().Price.Should().NotBe(null);
                 retValue.Last().MarketCapConvert.Should().NotBe(null);
                 retValue.Last().ConvertCurrency.Should().Be("JPY");
-            });
+            };
         }
 
         [Test]
@@ -84,14 +85,14 @@ namespace CoinCapClient.Test
         {
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             Currency currency = m_Sut.GetCurrencyBySlug("pivx","EUR");
-            Assert.Multiple(() =>
+            using (new AssertionScope())
             {
                 currency.Name.Should().Be("PIVX");
                 currency.Symbol.Should().Be("PIVX");
                 currency.Price.Should().NotBe(null);
                 currency.MarketCapConvert.Should().NotBe(null);
                 currency.ConvertCurrency.Should().Be("EUR");
-            });
+            };
         }
 
         [Test]
@@ -100,7 +101,7 @@ namespace CoinCapClient.Test
             //StraTis-> test with upper and lower case
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             List<Currency> currencyList = m_Sut.GetCurrencyBySlugList(new[] { "StraTis", "irisnet" }).ToList();
-            Assert.Multiple(() =>
+            using (new AssertionScope())
             {
                 currencyList[0].Name.Should().Be("Stratis");
                 currencyList[0].Symbol.Should().Be("STRAX");
@@ -111,7 +112,7 @@ namespace CoinCapClient.Test
                 currencyList[1].Symbol.Should().Be("IRIS");
                 currencyList[1].Price.Should().NotBe(null);
                 currencyList[1].MarketCapConvert.Should().NotBe(null);
-            });
+            };
         }
 
         [Test]
@@ -128,13 +129,13 @@ namespace CoinCapClient.Test
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             Currency currency = m_Sut.GetCurrencyBySymbol("USDT");
 
-            Assert.Multiple(() =>
+            using (new AssertionScope())
             {
-                currency.Name.Should().Be("Tether");
+                currency.Name.Should().Be("Tether USDt");
                 currency.Symbol.Should().Be("USDT");
                 currency.Price.Should().NotBe(null);
                 currency.MarketCapConvert.Should().NotBe(null);
-            });
+            };
         }
 
         [Test]
@@ -143,14 +144,14 @@ namespace CoinCapClient.Test
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             Currency currency = m_Sut.GetCurrencyBySymbol("ADA", "EUR");
 
-            Assert.Multiple(() =>
+            using (new AssertionScope())
             {
                 currency.Name.Should().Be("Cardano");
                 currency.Symbol.Should().Be("ADA");
                 currency.Price.Should().NotBe(null);
                 currency.MarketCapConvert.Should().NotBe(null);
                 currency.ConvertCurrency.Should().Be("EUR");
-            });
+            };
         }
 
         [Test]
@@ -159,7 +160,7 @@ namespace CoinCapClient.Test
             ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
             var currencyList = m_Sut.GetCurrencyBySymbolList(new[] { "DOGE", "LINK" }, "EUR").ToList();
 
-            Assert.Multiple(() =>
+            using (new AssertionScope())
             {
                 currencyList[0].Name.Should().Be("Dogecoin");
                 currencyList[0].Symbol.Should().Be("DOGE");
@@ -167,12 +168,35 @@ namespace CoinCapClient.Test
                 currencyList[0].MarketCapConvert.Should().NotBe(null);
                 currencyList[0].ConvertCurrency.Should().Be("EUR");
 
-                currencyList[1].Name.Should().Be("Chainlink");
-                currencyList[1].Symbol.Should().Be("LINK");
-                currencyList[1].Price.Should().NotBe(null);
-                currencyList[1].MarketCapConvert.Should().NotBe(null);
-                currencyList[1].ConvertCurrency.Should().Be("EUR");
-            });
+                currencyList.Last().Name.Should().Be("Chainlink");
+                currencyList.Last().Symbol.Should().Be("LINK");
+                currencyList.Last().Price.Should().NotBe(null);
+                currencyList.Last().MarketCapConvert.Should().NotBe(null);
+                currencyList.Last().ConvertCurrency.Should().Be("EUR");
+            };
+        }
+
+
+        [Test]
+        public void GetCurrencyBySymbol_Arb_ReturnsCurrency()
+        {
+            ICoinmarketcapClient m_Sut = new CoinmarketcapClient(API_KEY);
+            var currencyList = m_Sut.GetCurrencyBySymbolList(new[] { "ARB" }).ToList();
+
+            using (new AssertionScope())
+            {
+                currencyList[0].Name.Should().Be("Arbitrum");
+                currencyList[0].Symbol.Should().Be("ARB");
+                currencyList[0].Price.Should().NotBe(null);
+                currencyList[0].MarketCapConvert.Should().NotBe(null);
+                currencyList[0].ConvertCurrency.Should().Be("USD");
+
+                currencyList.Last().Name.Should().Be("Arbitrum (IOU)");
+                currencyList.Last().Symbol.Should().Be("ARB");
+                currencyList.Last().Price.Should().NotBe(null);
+                currencyList.Last().MarketCapConvert.Should().NotBe(null);
+                currencyList.Last().ConvertCurrency.Should().Be("USD");
+            };
         }
     }
 }
